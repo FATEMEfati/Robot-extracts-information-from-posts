@@ -1,0 +1,8 @@
+venv/
+
+.env
+
+*.log
+*.json
+
+links.txt
