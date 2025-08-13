@@ -1,4 +1,4 @@
-***Instagram Post Extractor Script***
+**Instagram Post Extractor Script**
 # Overview
 This Python script automates the process of extracting detailed information from Instagram posts. It logs into Instagram (if credentials are provided), navigates to specified post URLs, and extracts metadata such as likes, comments, article info, post date, and description. The results are saved into a JSON file for further analysis or record-keeping.
 
@@ -72,9 +72,9 @@ https://www.instagram.com/reel/example3/?igsh=bWNiNW1qYmM3bGo4
 And the output file should be a file containing a list.
 
 # files
-links.txt : Text file containing Instagram post URLs, one per line.
-instagram_extractor.log : Log file recording process details and errors.
-posts.json : Output JSON file with extracted post data (created or appended).
+- links.txt : Text file containing Instagram post URLs, one per line.
+- instagram_extractor.log : Log file recording process details and errors.
+- posts.json : Output JSON file with extracted post data (created or appended).
 
 # Notes
 Ensure your Instagram credentials are correct.
