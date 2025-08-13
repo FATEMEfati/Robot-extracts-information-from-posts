@@ -1,3 +1,4 @@
+
 import json
 import time
 import logging
@@ -20,12 +21,19 @@ logging.basicConfig(
 )
 
 class ExtractInstagramPosts:
+    """Class to extract details from Instagram posts using Selenium WebDriver."""
     def __init__(self, driver, client):
+        """
+        Initialize with WebDriver and Instagram API client.
+        """
         self.driver = driver
         self.client = client
 
     @staticmethod
     def init_driver(proxy=None):
+        """
+        Initialize and return a headless Chrome WebDriver, optionally with a proxy.
+        """
         options = webdriver.ChromeOptions()
         options.add_argument("--headless")
         options.add_argument("--disable-gpu")
@@ -42,6 +50,10 @@ class ExtractInstagramPosts:
         return driver
 
     def get_post_details(self, url):
+        """
+        Fetch post details from a given Instagram post URL.
+        Retries up to 3 times on failure.
+        """
         max_retries = 3
         for attempt in range(max_retries):
             try:
@@ -82,55 +94,80 @@ class ExtractInstagramPosts:
                 time.sleep(5)
 
     def extract_likes(self, content):
+        """
+        Extract number of likes from the description content.
+        """
         match = re.search(r'([\d,]+)\s+likes', content, re.IGNORECASE)
         if match:
             return match.group(1).replace(',', '')
         return None
 
     def extract_comments(self, content):
+        """
+        Extract number of comments from the description content.
+        """
         match = re.search(r'([\d,]+)\s+comments', content, re.IGNORECASE)
         if match:
             return match.group(1).replace(',', '')
         return None
 
     def extract_article(self, content):
+        """
+        Extract article name or identifier from the description content.
+        """
         match = re.search(r'-\s*([^\s]+)\s*on', content)
         if match:
             return match.group(1).strip()
         return None
 
     def extract_date(self, content):
+        """
+        Extract date of the post from the description content.
+        """
         match = re.search(r'on\s+([A-Za-z]+\s+\d{1,2},\s+\d{4})', content)
         if match:
             return match.group(1).strip()
         return None
 
     def extract_description(self, content):
+        """
+        Extract textual description from the description content.
+        """
         match = re.search(r'"([^"]+)"', content)
         if match:
             return match.group(1).strip()
         return None
 
     def close(self):
+        """
+        Quit the WebDriver instance.
+        """
         self.driver.quit()
 
 
 def main():
+    """
+    Main function to parse arguments, perform login, extract post details, and save results.
+    """
     parser = argparse.ArgumentParser(description='Instagram Post Extractor')
     subparsers = parser.add_subparsers(dest='command', help='Sub-command help')
 
+    
     login_parser = subparsers.add_parser('login', help='Login to Instagram')
     login_parser.add_argument('--username', required=True, help='Instagram username')
     login_parser.add_argument('--password', required=True, help='Instagram password')
 
+    
     proxy_parser = subparsers.add_parser('proxy', help='Use proxy with WebDriver')
     proxy_parser.add_argument('--proxy', required=True, help='Proxy address (e.g., http://proxyserver:port)')
 
+    
     parser.add_argument('--links', default='links.txt', help='Path to links file')
     parser.add_argument('--output', default='instagram_posts.json', help='Output JSON file')
 
     args = parser.parse_args()
 
+    
     cl = Client()
     if args.command == 'login':
         try:
@@ -140,14 +177,17 @@ def main():
             logging.error(f"Failed to login: {e}")
             sys.exit(1)
 
+    
     proxy_value = None
     if args.command == 'proxy':
         proxy_value = args.proxy
 
+    
     driver = ExtractInstagramPosts.init_driver(proxy=proxy_value)
 
     extractor = ExtractInstagramPosts(driver, cl)
 
+    
     try:
         with open(args.links, 'r', encoding='utf-8') as f:
             urls = [line.strip() for line in f if line.strip()]
@@ -157,6 +197,7 @@ def main():
 
     results = []
 
+    
     for url in urls:
         logging.info(f'Processing: {url}')
         try:
@@ -165,10 +206,11 @@ def main():
         except Exception as e:
             logging.error(f"Error processing {url}: {e}")
 
+    
     extractor.close()
 
-    try:
     
+    try:
         if os.path.exists(args.output):
             with open(args.output, 'r', encoding='utf-8') as f:
                 existing_data = json.load(f)
