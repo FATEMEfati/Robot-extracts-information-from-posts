@@ -1,5 +1,5 @@
-**Instagram Post Extractor Script**
-# Overview
+# Instagram Post Extractor Script 
+## Overview
 This Python script automates the process of extracting detailed information from Instagram posts. It logs into Instagram (if credentials are provided), navigates to specified post URLs, and extracts metadata such as likes, comments, article info, post date, and description. The results are saved into a JSON file for further analysis or record-keeping.
 
 ## Features
@@ -31,11 +31,11 @@ This Python script automates the process of extracting detailed information from
 ```bash
 python -m venv myenv
 ```
-then:
+- then:
 ```bash
 .\myenv\Scripts\activate
 ```
-Install the required packages:
+- Install the required packages:
 ```bash
 pip install -r requirements.txt
 ```
@@ -43,18 +43,18 @@ Download ChromeDriver compatible with your Chrome browser version from
 here
 and ensure it is in your system PATH or specify its location.
 
-# Usage
-## Login to Instagram
+## Usage
+### Login to Instagram
 To log in before scraping:
 ```bash
 python .\main.py login --username YOUR_USERNAME --password YOUR_PASSWORD
 ```
-# Use Proxy (Optional)
+### Use Proxy (Optional)
 ```bash
 python .\main.py proxy --proxy http://proxyserver:port
 ```
 This script has the ability to connect to proxies that do not require authentication.
- # Running the Script
+ ## Running the Script
  
  Basic usage with URLs file and output file:
  ```bash
@@ -70,6 +70,12 @@ https://www.instagram.com/reel/example3/?igsh=bWNiNW1qYmM3bGo4
 ```
 And the output file should be a file containing a list.
 
+- You can also use these commands
+```bash
+python .\main.py login --username YOUR_USERNAME --pasword YOUR_PASWORD --links links.txt --output posts.json
+python .\main.py proxy http://proxyserver:port --links links.txt --output posts.json
+python .\main.py
+```
 # files
 - links.txt : Text file containing Instagram post URLs, one per line.
 - instagram_extractor.log : Log file recording process details and errors.
