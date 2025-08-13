@@ -3,32 +3,31 @@
 This Python script automates the process of extracting detailed information from Instagram posts. It logs into Instagram (if credentials are provided), navigates to specified post URLs, and extracts metadata such as likes, comments, article info, post date, and description. The results are saved into a JSON file for further analysis or record-keeping.
 
 ## Features
-Headless Chrome WebDriver for scraping
-Supports proxy configuration
-Instagram login automation
-Extracts post metadata including likes, comments, article, date, and description
-Handles multiple URLs from a text file
-Appends results to an existing JSON output file
-Logs detailed process and error messages
-Prerequisites
-Python 3.x installed
+- Headless Chrome WebDriver for scraping
+- Supports proxy configuration
+- Instagram login automation
+- Extracts post metadata including likes, comments, article, date, and description
+- Handles multiple URLs from a text file
+- Appends results to an existing JSON output file
+- Logs detailed process and error messages
+- Prerequisites
+- Python 3.x installed
 
 ## Required Python libraries:
 
-selenium
-instagrapi
-re (standard library)
-json (standard library)
-logging (standard library)
-argparse (standard library)
-sys (standard library)
-os (standard library)
-time (standard library)
-Chrome WebDriver installed and accessible in your PATH
+- selenium
+- instagrapi
+- re (standard library)
+- json (standard library)
+- logging (standard library)
+- argparse (standard library)
+- sys (standard library)
+- os (standard library)
+- time (standard library)Chrome WebDriver installed and accessible in your PATH
 
 ## Installation
-Clone or download this repository.
-First create your virtual environment.
+- Clone or download this repository.
+- First create your virtual environment.
 ```bash
 python -m venv myenv
 ```
